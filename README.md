@@ -2,13 +2,12 @@
 ## How to install Laravel Project Bucket Manage
 
 - php version require >=8.0.28
-- git clone https://github.com/rpatel262226/bucket-manage.git in your folder
-- create database in phpmyadmin
-- go to directory bucket-manage and open .env file and change database credential according to created database in phpmyadmin
-- open terminal and go to directory bucket-manage
-- command hit - php artisan migration
-- hit command  - php artisan serve
-- project run url will show in terminal and open in browser.
+- Go to the folder application using cd command on your cmd or terminal
+- Run composer install on your cmd or terminal
+- Open your .env file and change the database name (DB_DATABASE) to whatever you have, - - username (DB_USERNAME) and password (DB_PASSWORD) field correspond to your configuration.
+- Run php artisan key:generate
+- Run php artisan migrate
+- Run php artisan serve
 
 
 
