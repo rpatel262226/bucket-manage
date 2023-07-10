@@ -105,7 +105,7 @@ class BucketManage extends Controller
             
             //"1 Pink Ball and 2 Blue balls cannot be accommodated in any bucket since there is no available space."
             // reset proccess for next new cycle
-            Bucket::query()->update(['bucket_store_status' => 'not_started']);
+            //Bucket::query()->update(['bucket_store_status' => 'not_started']);
                 
             if($bucketFull == "true"){
                     $k=1;
