@@ -92,6 +92,7 @@ class BucketManage extends Controller
                         BucketSuggestion::create(['ball_id' => $blIds[$i],'bucket_id' => $checkVa['id']]);
                         $rDeff = $checkVa->remain_volume - $blSizes[$i];
                         $checkVa->update(['remain_volume' => $rDeff,'bucket_store_status' => 'in_proccess']);
+                        Bucket::query()->where('id' ,'<>', $checkVa -> id)->update(['bucket_store_status' => 'not_started']);
                     }else{
                         $BallCountStop = $j-1;
                         $remainBallArray[$blName[$i]] = $blTotal[$i] - $BallCountStop;
@@ -105,7 +106,7 @@ class BucketManage extends Controller
             
             //"1 Pink Ball and 2 Blue balls cannot be accommodated in any bucket since there is no available space."
             // reset proccess for next new cycle
-            Bucket::query()->where(['remain_volume' => 0])->update(['bucket_store_status' => 'not_started']);
+            
                 
             if($bucketFull == "true"){
                     $k=1;
