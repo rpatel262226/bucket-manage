@@ -34,13 +34,13 @@ class BucketManage extends Controller
             if($existCheck){
                 $bucket_data = $existCheck->update($inputs);
                 BucketSuggestion::truncate();
-                Bucket::query()->update(['remain_volume' => DB::raw('volume')]);
+                Bucket::query()->update(['remain_volume' => DB::raw('volume'),'bucket_store_status' => 'not_started']);
                 $res = ['status'=>'success','msg' => "Bucket Updated",'data'=>$bucket_data];
                 
             }else{
                 $bucket_data = Bucket::create($inputs);
                 BucketSuggestion::truncate();
-                Bucket::query()->update(['remain_volume' => DB::raw('volume')]);
+                Bucket::query()->update(['remain_volume' => DB::raw('volume'),'bucket_store_status' => 'not_started']);
                 $res = ['status'=>'success','msg' => "Bucket Added",'data'=>$bucket_data];
             }
             
@@ -61,11 +61,11 @@ class BucketManage extends Controller
             if($existCheck){
                 $ball_data = $existCheck->update($inputs);
                 BucketSuggestion::truncate();
-                Bucket::query()->update(['remain_volume' => DB::raw('volume')]);
+                Bucket::query()->update(['remain_volume' => DB::raw('volume'),'bucket_store_status' => 'not_started']);
                 $res = ['status'=>'success','msg' => "Ball Updated",'data'=>$existCheck->first(),'actype' => "update"];
             }else{
                 BucketSuggestion::truncate();
-                Bucket::query()->update(['remain_volume' => DB::raw('volume')]);
+                Bucket::query()->update(['remain_volume' => DB::raw('volume'),'bucket_store_status' => 'not_started']);
                 $ball_data = Ball::create($inputs);
                 $res = ['status'=>'success','msg' => "Ball Added",'data'=>$ball_data,'actype' => "add" ] ;
             }
@@ -105,7 +105,7 @@ class BucketManage extends Controller
             
             //"1 Pink Ball and 2 Blue balls cannot be accommodated in any bucket since there is no available space."
             // reset proccess for next new cycle
-            //Bucket::query()->update(['bucket_store_status' => 'not_started']);
+            Bucket::query()->where(['remain_volume' => 0])->update(['bucket_store_status' => 'not_started']);
                 
             if($bucketFull == "true"){
                     $k=1;
